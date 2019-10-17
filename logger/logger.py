@@ -1,5 +1,4 @@
 #!/usr/bin/python
-
 # ============================================================================
 # File: logger.py
 # ------------------------------
@@ -72,18 +71,21 @@ class clean_room_monitor(object):
                 if self.use_dc1700:
                     cnt05, cnt25 = dc1700.read_particle_counts() # takes 60s of integration time
 
-                ## Determine cleanroom class from particle count per cubic inch
-                if (cnt05/0.0254**3 < 352000 and cnt25/0.0254**3 < 11720):
+                ## Determine cleanroom class from particle count per .01 fb-1 to cubic meter
+                if (cnt05*100/0.0283168 < 35200 and cnt25*100/0.0283168 < 1172):
+                    iso = 6
+                    clas = 1000
+                elif (cnt05*100/0.0283168 < 352000 and cnt25*100/0.0283168 < 11720):
                     iso = 7
                     clas = 10000
-                elif (cnt05/0.0254**3 < 3520000 and cnt25/0.0254**3 < 117200):
+                elif (cnt05*100/0.0283168 < 3520000 and cnt25*100/0.0283168 < 117200):
                     iso = 8
                     clas = 100000
                 else:
                     iso = 9
                     clas = 1000000
 
-                line = [date, clock, temp, hum, pres, cnt05, cnt25, iso, clas]
+                line = [date, clock, temp, hum, pres, cnt05*100/0.0283168, cnt25*100/0.0283168, iso, clas]
 
                 ## Print feedback
                 if fPrint:
