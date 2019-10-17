@@ -57,10 +57,13 @@ for f in sorted(file_list):
                 axes[j%2, j/2].set_ylim([90000, 110000])
                 axes[j%2, j/2].set_ylabel('pressure [Pa]')
             elif (key == 'cnt5'):
-                axes[j%2, j/2].set_ylim([0, 400000])
+                axes[j%2, j/2].set_ylim([1000, 10000000])
                 axes[j%2, j/2].set_ylabel('# particles > 0.5 um / m^3 [-]')
+                axes[j%2, j/2].axhline(y=3520000, linewidth=1.5, color='r')
                 axes[j%2, j/2].axhline(y=352000, linewidth=1.5, color='b')
-                axes[j%2, j/2].axhline(y=35200, linewidth=2, color='g')
+                axes[j%2, j/2].axhline(y=35200, linewidth=1.5, color='g')
+                axes[j%2, j/2].axhline(y=3520, linewidth=1.5, color='m')
+                axes[j%2, j/2].set_yscale('log')
             
             plt.gcf().autofmt_xdate()
             j += 1
