@@ -35,8 +35,8 @@ class clean_room_monitor(object):
         self.counter_address = '/dev/ttyUSB0'   # serial port particle counter
 
         self.use_dht22 = 1                      # flag if dht is connected
-        self.use_bmp180 = 1                     # flag if bmp is connected
-        self.use_dc1700 = 1                     # flag if dylos is connected
+        self.use_bmp180 = 0                     # flag if bmp is connected
+        self.use_dc1700 = 0                     # flag if dylos is connected
 
         self.wait = 10                          # time between measurements
                                                 # keep in mind that the pc measurement takes 60s
