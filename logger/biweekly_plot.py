@@ -16,7 +16,7 @@ plt.rcParams['grid.alpha'] = 0.8
 plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'
 
-dat_path = "/home/hgsensor/Applications/clean_room_monitor/data/"
+dat_path = "/home/hgsensor/Applications/clean_room_monitor_fridge/data/"
 
 dat = []
 file_list = sorted([f for f in os.listdir(dat_path) \
@@ -42,30 +42,19 @@ x = mdates.date2num([datetime.datetime.combine( \
         for k in range(nvals)])
 
 j = 0
-fig, axes = plt.subplots(2, 2)
-for key in ['temp', 'hum', 'pres', 'cnt5']:
+fig, axes = plt.subplots(2, 1)
+for key in ['temp', 'hum']:
     y = dat[key]
-    axes[j%2, j/2].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H'))
-    axes[j%2, j/2].xaxis.set_major_locator(mdates.DayLocator(interval=2))
+    axes[j%2].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H'))
+    axes[j%2].xaxis.set_major_locator(mdates.DayLocator(interval=2))
 
-    axes[j%2, j/2].plot(x, y, ls=' ', ms=1, marker='o', mfc="k", mec="k")
+    axes[j%2].plot(x, y, ls=' ', ms=1, marker='o', mfc="k", mec="k")
     if (key == 'temp'):
-        axes[j%2, j/2].set_ylim([18, 28])
-        axes[j%2, j/2].set_ylabel('temperature [C]')
+        axes[j%2].set_ylim([-25, 25])
+        axes[j%2].set_ylabel('temperature [C]')
     elif (key == 'hum'):
-        axes[j%2, j/2].set_ylim([30, 80])
-        axes[j%2, j/2].set_ylabel('humidity [%]')
-    elif (key == 'pres'):
-        axes[j%2, j/2].set_ylim([90000, 110000])
-        axes[j%2, j/2].set_ylabel('pressure [Pa]')
-    elif (key == 'cnt5'):
-        axes[j%2, j/2].set_ylim([1000, 10000000])
-        axes[j%2, j/2].set_ylabel('# particles > 0.5 um / m^3 [-]')
-        axes[j%2, j/2].axhline(y=3520000, linewidth=1.5, color='r')
-        axes[j%2, j/2].axhline(y=352000, linewidth=1.5, color='b')
-        axes[j%2, j/2].axhline(y=35200, linewidth=1.5, color='g')
-        axes[j%2, j/2].axhline(y=3520, linewidth=1.5, color='m')
-        axes[j%2, j/2].set_yscale('log')
+        axes[j%2].set_ylim([0, 100])
+        axes[j%2].set_ylabel('humidity [%]')
 
     plt.gcf().autofmt_xdate()
     j += 1
